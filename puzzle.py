@@ -24,6 +24,11 @@ def main():
         puzzle = row1, row2, row3
 
 
+    inputalgo = input('Enter your choice of algorithm \n1. Uniform Cost Search \n2. A* with the Misplaced Tile heuristic. \n3. A* with the Euclidean distance heuristic.\n')
+
+    algofunction = int(inputalgo)
+
+
 def goalState(puzzle):
     goalStatePuzzle = (["1", "2", "3"], ["4", "5", "6"], ["7", "8", "0"])
 
