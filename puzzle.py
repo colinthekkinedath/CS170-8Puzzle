@@ -57,11 +57,9 @@ def euclideanDistanceHeuristic(puzzle):
 
     for i in range(len(puzzle)):
         for j in range(len(puzzle)):
-            if puzzle[i][j] != "0":  # Exclude the blank tile
+            if puzzle[i][j] != "0":  
                 num = int(puzzle[i][j])
-                # Find the position of num in the goal state
                 goal_i, goal_j = findNumberPosition(goalStatePuzzle, num)
-                # Calculate Euclidean distance and add to total
                 distance = math.sqrt((i - goal_i)**2 + (j - goal_j)**2)
                 totalDistance += distance
 
