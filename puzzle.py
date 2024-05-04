@@ -1,5 +1,6 @@
 import math
 from nodeClass import node
+import copy
 
 def main():
     print('Welcome to 862332810, 862344897 8 puzzle solver.')
@@ -70,6 +71,55 @@ def findNumberPosition(puzzle, num):
         for j in range(len(puzzle)):
             if puzzle[i][j] == str(num):
                 return i, j
+            
+def expand(node, visited):
+    row = 0
+    col = 0
+
+    for i in range(len(node.puzzle)):
+        for j in range(len(node.puzzle)):
+            if (node.puzzle[i][j] == "0"):
+                row = i
+                col = j
+    
+    if col > 0:
+        moveLeft = copy.deepcopy(node.puzzle)
+        holder = moveLeft[row][col]
+        moveLeft[row][col] = moveLeft[row][col - 1]
+        moveLeft[row][col - 1] = holder
+
+        if moveLeft not in visited:
+            node.child1 = node(moveLeft)
+
+    if col < len(node.puzzle) - 1:
+        moveRight = copy.deepcopy(node.puzzle)
+        holder = moveRight[row][col]
+        moveRight[row][col] = moveRight[row][col + 1]
+        moveRight[row][col + 1] = holder
+
+        if moveRight not in visited:
+            node.child3 = node(moveRight)
+
+
+    if row > 0:
+        moveUp = copy.deepcopy(node.puzzle)
+        holder = moveUp[row][col]
+        moveUp[row][col] = moveUp[row - 1][col]
+        moveUp[row - 1][col] = holder
+
+        if moveUp not in visited:
+            node.child3 = node(moveUp)
+
+    if row < len(node.puzzle) - 1:
+        moveDown = copy.deepcopy(node.puzzle)
+        holder = moveDown[row][col]
+        moveDown[row][col] = moveDown[row + 1][col]
+        moveDown[row + 1][col] = holder
+
+        if moveDown not in visited:
+            node.child3 = node(moveDown)
+
+    return node
 
 if __name__ == "__main__":
     main()
