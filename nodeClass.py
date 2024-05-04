@@ -4,8 +4,8 @@ class node:
         self.cost = 0
         self.depth = 0
         self.parent = None
-        self.child1 = 0
-        self.child2 = 0
-        self.child3 = 0
-        self.child4 = 0
+        self.child1 = None
+        self.child2 = None
+        self.child3 = None
+        self.child4 = None
         self.expanded = False
