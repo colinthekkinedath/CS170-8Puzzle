@@ -1,3 +1,5 @@
+from nodeClass import node
+
 def main():
     print('Welcome to 862332810, 862344897 8 puzzle solver.')
 
