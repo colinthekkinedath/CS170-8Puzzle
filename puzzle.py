@@ -1,3 +1,4 @@
+import math
 from nodeClass import node
 
 def main():
@@ -49,6 +50,26 @@ def misplacedTileHeuristic(puzzle):
                 misplacedTiles += 1
 
     return misplacedTiles
+
+def euclideanDistanceHeuristic(puzzle):
+    goalStatePuzzle = (["1", "2", "3"], ["4", "5", "6"], ["7", "8", "0"])
+    totalDistance = 0
+
+    for i in range(len(puzzle)):
+        for j in range(len(puzzle)):
+            if puzzle[i][j] != "0":  
+                num = int(puzzle[i][j])
+                goal_i, goal_j = findNumberPosition(goalStatePuzzle, num)
+                distance = math.sqrt((i - goal_i)**2 + (j - goal_j)**2)
+                totalDistance += distance
+
+    return totalDistance
+
+def findNumberPosition(puzzle, num):
+    for i in range(len(puzzle)):
+        for j in range(len(puzzle)):
+            if puzzle[i][j] == str(num):
+                return i, j
 
 if __name__ == "__main__":
     main()
