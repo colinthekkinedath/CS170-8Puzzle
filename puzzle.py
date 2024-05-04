@@ -37,5 +37,16 @@ def goalState(puzzle):
     
     return False
 
+def misplacedTileHeuristic(puzzle):
+    goalStatePuzzle = (["1", "2", "3"], ["4", "5", "6"], ["7", "8", "0"])
+    misplacedTiles = 0
+
+    for i in range(len(puzzle)):
+        for j in range(len(puzzle)):
+            if (puzzle[i][j] != goalStatePuzzle[i][j]) and (int(puzzle[i][j]) != 0):
+                misplacedTiles += 1
+
+    return misplacedTiles
+
 if __name__ == "__main__":
     main()
