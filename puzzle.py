@@ -31,6 +31,80 @@ def main():
 
     algofunction = int(inputalgo)
 
+    print(solvePuzzle(puzzle, algofunction))
+
+def solvePuzzle(puzzle, algofunction):
+    queue = []
+    visited = []
+    visitedCount = -1
+    queueSize = 0
+    maxSize = -1
+
+    if algofunction == 1:
+        heuristic = 0
+
+    elif algofunction == 2:
+        heuristic = misplacedTileHeuristic(puzzle)
+    
+    elif algofunction == 3:
+        heuristic = euclideanDistanceHeuristic(puzzle)
+
+    n = node(puzzle)
+    n.cost = heuristic
+    n.depth = 0
+    queue.append(n)
+
+    visited.append(n.puzzle)
+    queueSize += 1
+    maxSize += 1
+
+    while True:
+        if algofunction != 1:
+            queue = sorted(queue, key=lambda x: x.cost)
+
+        if len(queue) == 0:
+            print('No solution found')
+            
+        firstNode = queue.pop(0)
+        if firstNode.expanded is False:
+            visitedCount += 1
+            firstNode.expanded = True
+
+        maxSize -= 1
+
+        if goalState(firstNode.puzzle):
+            print('Goal!')
+            
+        if visitedCount != 0:
+            print('The best state to expand with a g(n) = ' + str(firstNode.depth) + ' and h(n) = ' + str(firstNode.cost)
+                  + ' is...\n' + str(firstNode.puzzle) + '\tExpanding this node...\n')
+        
+        else:
+            print('Expanding state...\n' + str(firstNode.puzzle) + '\n')
+        
+        expandNode = expand(firstNode, visited)
+
+        arr = [expandNode.child1, expandNode.child2, expandNode.child3, expandNode.child4]
+
+        for i in arr:
+            if i is not None:
+                if algofunction == 1:
+                    i.depth = firstNode.depth + 1
+                    i.cost = 0
+                elif algofunction == 2:
+                    i.depth = firstNode.depth + 1
+                    i.cost = misplacedTileHeuristic(i.puzzle)
+                elif algofunction == 3:
+                    i.depth = firstNode.depth + 1
+                    i.cost = euclideanDistanceHeuristic(i.puzzle)
+                
+                queue.append(i)
+                visited.append(i.puzzle)
+                queueSize += 1
+
+        if queueSize > maxSize:
+            maxSize = queueSize
+
 
 def goalState(puzzle):
     goalStatePuzzle = (["1", "2", "3"], ["4", "5", "6"], ["7", "8", "0"])
