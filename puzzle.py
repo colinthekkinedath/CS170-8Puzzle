@@ -10,7 +10,7 @@ def main():
     inputnum = int(inputpuzzle)
 
     if inputnum == 1:
-        puzzle = (["1", "2", "3"], ["4", "5", "6"], ["7", "8", "0"])
+        puzzle = (["1", "2", "3"], ["4", "0", "6"], ["7", "5", "8"])
 
     elif inputnum == 2:
         print('Enter your puzzle, use a zero to represent the blank')
@@ -32,7 +32,7 @@ def main():
 
     algofunction = int(inputalgo)
 
-    print(solvePuzzle(puzzle, algofunction))
+    solvePuzzle(puzzle, algofunction)
 
 def solvePuzzle(puzzle, algofunction):
     queue = []
