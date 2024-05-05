@@ -124,7 +124,7 @@ def misplacedTileHeuristic(puzzle):
 
     for i in range(len(puzzle)):
         for j in range(len(puzzle)):
-            if (puzzle[i][j] != goalStatePuzzle[i][j]) and (int(puzzle[i][j]) != 0):
+            if (puzzle[i][j] != goalStatePuzzle[i][j]) and (puzzle[i][j] != "0"):
                 misplacedTiles += 1
 
     return misplacedTiles
