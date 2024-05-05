@@ -2,6 +2,7 @@
 import math
 from nodeClass import node
 import copy
+import time
 
 def main():
     print('Welcome to 862332810, 862344897 8 puzzle solver.')
@@ -36,6 +37,9 @@ def main():
     solvePuzzle(puzzle, algofunction)
 
 def solvePuzzle(puzzle, algofunction):
+
+    initialTime = time.time()
+
     queue = []
     visited = []
     visitedCount = -1
@@ -79,6 +83,7 @@ def solvePuzzle(puzzle, algofunction):
             print('Goal! \n\nTo solve this problem the search algorithm expanded a total of ' +
                   str(visitedCount) + ' nodes.\nThe maximum number of nodes in the queue at any one time was '
                   + str(maxSize) + '.\nThe depth of the goal node was ' + str(firstNode.depth))
+            print('The time taken was ' + str(time.time() - initialTime) + ' seconds')
             return
             
         if visitedCount != 0:
