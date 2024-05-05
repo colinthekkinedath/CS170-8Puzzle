@@ -61,10 +61,11 @@ def solvePuzzle(puzzle, algofunction):
 
     while True:
         if algofunction != 1:
-            queue = sorted(queue, key=lambda x: x.cost)
+            queue = sorted(queue, key=lambda x: (x.depth + x.cost, x.depth))
 
         if len(queue) == 0:
             print('No solution found')
+            return
             
         firstNode = queue.pop(0)
         if firstNode.expanded is False:
@@ -75,6 +76,7 @@ def solvePuzzle(puzzle, algofunction):
 
         if goalState(firstNode.puzzle):
             print('Goal!')
+            return
             
         if visitedCount != 0:
             print('The best state to expand with a g(n) = ' + str(firstNode.depth) + ' and h(n) = ' + str(firstNode.cost)
@@ -172,7 +174,7 @@ def expand(expandingNode, visited):
         moveRight[row][col + 1] = holder
 
         if moveRight not in visited:
-            expandingNode.child3 = node(moveRight)
+            expandingNode.child2 = node(moveRight)
 
 
     if row > 0:
@@ -191,7 +193,7 @@ def expand(expandingNode, visited):
         moveDown[row + 1][col] = holder
 
         if moveDown not in visited:
-            expandingNode.child3 = node(moveDown)
+            expandingNode.child4 = node(moveDown)
 
     return expandingNode
 
