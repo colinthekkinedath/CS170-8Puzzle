@@ -159,6 +159,7 @@ def euclideanDistanceHeuristic(puzzle):
 
     return totalDistance
 
+# helper function for the Euclidean Distance Heuristic
 def findNumberPosition(puzzle, num):
     for i in range(len(puzzle)):
         for j in range(len(puzzle)):
@@ -178,6 +179,8 @@ def expand(expandingNode, visited):
                 col = j
     
     # Generates child nodes by moving the blank tile in all possible directions
+    # Create a deep copy so the puzzle knows where to expand
+    # moving Left
     if col > 0:
         moveLeft = copy.deepcopy(expandingNode.puzzle)
         holder = moveLeft[row][col]
@@ -187,6 +190,7 @@ def expand(expandingNode, visited):
         if moveLeft not in visited:
             expandingNode.child1 = node(moveLeft)
 
+    # moving Right
     if col < len(expandingNode.puzzle) - 1:
         moveRight = copy.deepcopy(expandingNode.puzzle)
         holder = moveRight[row][col]
@@ -196,6 +200,7 @@ def expand(expandingNode, visited):
         if moveRight not in visited:
             expandingNode.child2 = node(moveRight)
 
+    # moving Up
     if row > 0:
         moveUp = copy.deepcopy(expandingNode.puzzle)
         holder = moveUp[row][col]
@@ -205,6 +210,7 @@ def expand(expandingNode, visited):
         if moveUp not in visited:
             expandingNode.child3 = node(moveUp)
 
+    # moving Down
     if row < len(expandingNode.puzzle) - 1:
         moveDown = copy.deepcopy(expandingNode.puzzle)
         holder = moveDown[row][col]
