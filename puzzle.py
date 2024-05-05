@@ -77,9 +77,9 @@ def solvePuzzle(puzzle, algofunction):
         maxSize -= 1
 
         if goalState(firstNode.puzzle):
-            print('Goal! \n\nTo solve this problem the search algorithm expanded a total of ' +
-                  str(visitedCount) + ' nodes.\nThe maximum number of nodes in the queue at any one time was '
-                  + str(maxSize) + '.\nThe depth of the goal node was ' + str(firstNode.depth))
+            print('Goal! \n\nTo solve this problem the search algorithm expanded a total of ' + str(visitedCount) + ' nodes.')
+            print('The maximum number of nodes in the queue at any one time was '+ str(maxSize) + '.')
+            print('The depth of the goal node was ' + str(firstNode.depth))
             print('The time taken was ' + str(time.time() - initialTime) + ' seconds')
             return
             
