@@ -5,6 +5,7 @@ import time
 def main():
     print('Welcome to 862332810, 862344897 8 puzzle solver.')
 
+    # Asks user to choose a default puzzle or enter their own
     inputpuzzle = input("Type '1' to use a default puzzle, or '2' to enter your own puzzle.\n")
 
     inputnum = int(inputpuzzle)
@@ -13,6 +14,7 @@ def main():
         puzzle = (["1", "2", "3"], ["4", "0", "6"], ["7", "5", "8"])
 
     elif inputnum == 2:
+        # Takes user input for their own puzzle
         print('Enter your puzzle, use a zero to represent the blank')
 
         rows = []
@@ -26,22 +28,25 @@ def main():
         puzzle = tuple(rows)
 
 
+    # Asks user to choose an algorithm
     inputalgo = input('Enter your choice of algorithm \n1. Uniform Cost Search \n2. A* with the Misplaced Tile heuristic. \n3. A* with the Euclidean distance heuristic.\n')
 
     algofunction = int(inputalgo)
 
     solvePuzzle(puzzle, algofunction)
 
+# Function to solve the puzzle
 def solvePuzzle(puzzle, algofunction):
 
     initialTime = time.time()
 
-    queue = []
-    visited = []
+    queue = [] # Priority queue
+    visited = [] # List to keep track of visited nodes 
     visitedCount = -1
     queueSize = 0
     maxSize = -1
 
+    # Sets the heuristic value based on the algorithm chosen
     if algofunction == 1:
         heuristic = 0
 
@@ -51,6 +56,7 @@ def solvePuzzle(puzzle, algofunction):
     elif algofunction == 3:
         heuristic = euclideanDistanceHeuristic(puzzle)
 
+    # Creates the initial node
     n = node(puzzle)
     n.cost = heuristic
     n.depth = 0
@@ -61,6 +67,7 @@ def solvePuzzle(puzzle, algofunction):
     maxSize += 1
 
     while True:
+        # Sorts the queue based on the algorithm chosen
         if algofunction != 1:
             queue = sorted(queue, key=lambda x: (x.depth + x.cost, x.depth))
 
@@ -68,7 +75,7 @@ def solvePuzzle(puzzle, algofunction):
             print('No solution found')
             return
             
-        firstNode = queue.pop(0)
+        firstNode = queue.pop(0) # Removes the first node from the queue
         if firstNode.expanded is False:
             visitedCount += 1
             firstNode.expanded = True
@@ -89,12 +96,13 @@ def solvePuzzle(puzzle, algofunction):
         else:
             print('Expanding this node...\n' + str(firstNode.puzzle) + '\n')
         
-        expandNode = expand(firstNode, visited)
+        expandNode = expand(firstNode, visited) # Expands the current node
 
         arr = [expandNode.child1, expandNode.child2, expandNode.child3, expandNode.child4]
 
         for i in arr:
             if i is not None:
+                # Sets the cost and depth for children based on the algorithm chosen
                 if algofunction == 1:
                     i.depth = firstNode.depth + 1
                     i.cost = 0
@@ -109,10 +117,12 @@ def solvePuzzle(puzzle, algofunction):
                 visited.append(i.puzzle)
                 queueSize += 1
 
+        # Updates the maximum size of the queue
         if queueSize > maxSize:
             maxSize = queueSize
 
 
+# Function to check if the puzzle is in the goal state
 def goalState(puzzle):
     goalStatePuzzle = (["1", "2", "3"], ["4", "5", "6"], ["7", "8", "0"])
 
@@ -121,10 +131,12 @@ def goalState(puzzle):
     
     return False
 
+# Heuristic functions
 def misplacedTileHeuristic(puzzle):
     goalStatePuzzle = (["1", "2", "3"], ["4", "5", "6"], ["7", "8", "0"])
     misplacedTiles = 0
 
+    # Counts the number of misplaced tiles
     for i in range(len(puzzle)):
         for j in range(len(puzzle)):
             if (puzzle[i][j] != goalStatePuzzle[i][j]) and (puzzle[i][j] != "0"):
@@ -136,6 +148,7 @@ def euclideanDistanceHeuristic(puzzle):
     goalStatePuzzle = (["1", "2", "3"], ["4", "5", "6"], ["7", "8", "0"])
     totalDistance = 0
 
+    # Calculates the Euclidean distance for each number in the puzzle
     for i in range(len(puzzle)):
         for j in range(len(puzzle)):
             if puzzle[i][j] != "0":  
@@ -151,17 +164,20 @@ def findNumberPosition(puzzle, num):
         for j in range(len(puzzle)):
             if puzzle[i][j] == str(num):
                 return i, j
-            
+
+# Function to expand the current node
 def expand(expandingNode, visited):
     row = 0
     col = 0
 
+    # Finds the position of the blank tile
     for i in range(len(expandingNode.puzzle)):
         for j in range(len(expandingNode.puzzle)):
             if (expandingNode.puzzle[i][j] == "0"):
                 row = i
                 col = j
     
+    # Generates child nodes by moving the blank tile in all possible directions
     if col > 0:
         moveLeft = copy.deepcopy(expandingNode.puzzle)
         holder = moveLeft[row][col]
@@ -201,6 +217,7 @@ def expand(expandingNode, visited):
 
     return expandingNode
 
+# Defines the node class
 class node:
     def __init__(self, puzzle):
         self.puzzle = puzzle
