@@ -90,7 +90,7 @@ def solvePuzzle(puzzle, algofunction):
                   + ' is...\n' + str(firstNode.puzzle) + '\tExpanding this node...\n')
         
         else:
-            print('Expanding state...\n' + str(firstNode.puzzle) + '\n')
+            print('Expanding this node...\n' + str(firstNode.puzzle) + '\n')
         
         expandNode = expand(firstNode, visited)
 
