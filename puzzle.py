@@ -183,7 +183,6 @@ def expand(expandingNode, visited):
         if moveRight not in visited:
             expandingNode.child2 = node(moveRight)
 
-
     if row > 0:
         moveUp = copy.deepcopy(expandingNode.puzzle)
         holder = moveUp[row][col]
