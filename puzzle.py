@@ -3,7 +3,7 @@ import copy
 import time
 
 def main():
-    print('Welcome to 862332810, 862344897 8 puzzle solver.')
+    print('Welcome to 862332810, 862344897, 862385153, 862368434 8 puzzle solver.')
 
     # Asks user to choose a default puzzle or enter their own
     inputpuzzle = input("Type '1' to use a default puzzle, or '2' to enter your own puzzle.\n")
