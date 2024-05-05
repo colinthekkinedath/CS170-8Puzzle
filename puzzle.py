@@ -1,3 +1,4 @@
+#from math import sqrt, pow
 import math
 from nodeClass import node
 import copy
